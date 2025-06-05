@@ -18,7 +18,6 @@ func InitDB() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	// Автомиграция
 	if err := DB.AutoMigrate(&taskService.Task{}); err != nil {
 		log.Fatal("Failed to migrate database: ", err)
 		return nil, err

@@ -3,10 +3,10 @@ package taskService
 import "gorm.io/gorm"
 
 type TaskRepository interface {
-	CreateTask(task Task) error
+	CreateTask(task *Task) error
 	GetAllTasks() ([]Task, error)
 	GetTaskById(taskId string) (Task, error)
-	UpdateTask(task Task) error
+	UpdateTask(task *Task) error
 	DeleteTask(id string) error
 }
 
@@ -18,8 +18,9 @@ func NewTaskRepository(db *gorm.DB) TaskRepository {
 	return &taskRepository{DB: db}
 }
 
-func (r *taskRepository) CreateTask(task Task) error {
-	return r.DB.Create(&task).Error
+func (r *taskRepository) CreateTask(task *Task) error {
+	result := r.DB.Create(task)
+	return result.Error
 }
 
 func (r *taskRepository) GetAllTasks() ([]Task, error) {
@@ -34,8 +35,8 @@ func (r *taskRepository) GetTaskById(taskId string) (Task, error) {
 	return task, err
 }
 
-func (r *taskRepository) UpdateTask(task Task) error {
-	return r.DB.Save(&task).Error
+func (r *taskRepository) UpdateTask(task *Task) error {
+	return r.DB.Save(task).Error
 }
 
 func (r *taskRepository) DeleteTask(id string) error {
