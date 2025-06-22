@@ -19,7 +19,6 @@ migrate-up:
 	$(MIGRATE) up
 
 migrate-down:
-	$(MIGRATE) down
-
+	$(MIGRATE)
 run:
 	go run cmd/main.go
